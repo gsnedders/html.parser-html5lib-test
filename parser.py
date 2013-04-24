@@ -59,3 +59,21 @@ class TestParser(HTMLParser):
     def unknown_decl(self, data):
         assert False, "No other declarations exist in HTML"
 
+
+if __name__ == "__main__":
+    from io import StringIO
+    import sys
+
+    if len(sys.argv) == 1:
+        print("Pass HTML as first argument or pass - to read from stdin")
+        sys.exit(1)
+
+    if sys.argv[1] == "-":
+        data = "".join(sys.stdin)
+    else:
+        data = sys.argv[1]
+
+    dumper = StringIO()
+    parser = TestParser(dumper, strict=False)
+    parser.feed(data)
+    print(dumper.getvalue())
