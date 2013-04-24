@@ -8,6 +8,10 @@ class TestParser(HTMLParser):
         self.dump = dump
         self.curtext = []
 
+    def feed(self, *args, **kwargs):
+        super().feed(*args, **kwargs)
+        self.dumpcurtext()
+
     def formatdump(self, s):
         self.dump.write("".join(["| ", "  " * self.depth, s, "\n"]))
 
